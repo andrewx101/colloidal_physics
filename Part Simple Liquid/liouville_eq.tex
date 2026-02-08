@@ -1,0 +1,201 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\section{引入}
+经典统计力学旨在从构成宏观物质的$N$个微观质点的经典力学运动出发，解释并预测宏观热力学现象。然而，我们面临着世大的挑战：体系中的粒子数量$N$通常量级为$O\left(10^{23}\right)$。在如此庞大的体系下，即便我们能获得一个高精度、瞬时的微观状态（所有粒子的精确位置和动量），也无法按照经典力学的传统方法对所有粒子进行精确追踪和计算，更遑论完成宏观热力学状态函数的预测。
+
+从经典力学的角度看，如果能够确定体系在某一参考时刻$t=0$的微观状态，那么根据经典力学的因果律和时间演化的可逆性（时间反演对称性），体系在过去（$t<0$）和未来（$t>0$）任一时刻的微观状态原则上都可以由基本运动方程精确预测。然而，实际操作中，这种计算量是天文数字，根本无法实现。更重要的是，在实际物理场景中，我们甚至无法精确观测或控制体系在$t=0$时刻处于何种微观状态。我们通常只能观测体系的宏观热力学状态量（这些量是特定时长内的平均值，我们将在后续章节详述），以及控制施加在体系上的宏观约束（例如体系的体积、外形、压强、温度等）。在这些宏观约束下，体系内部的微观运动依然持续不断。
+
+因此，为了解决这一困境，我们需要引入一种能够描述体系微观状态不确定性的方法——概率统计描述。
+
+在经典力学假定下，一个由$N$个质点组成的系统的运动状态在任一时刻都可以由所有粒子的痊置矢量集合$\mathbf{r}^N\equiv\left(\mathbf{r}_1,\cdots,\mathbf{r}_N\right)$和动量矢量集合$\mathbf{p}^N\equiv\left(\mathbf{p}_1,\cdots,\mathbf{p}_N\right)$所确定。其中，每个粒子$i$有三维位置$\mathbf{r}_i$和三维动量$\mathbf{p}_i$。这意味着，系统的状态可由一个包含$6N$个实数（$3N$个位置坐标和$3N$个动量坐标）的矢量来描述。 我们将这个$6N$维实数空间称为\emph{相空间（phase space）}，并用相空间中的一个点$\symbf{\Gamma}\in\mathbb{R}^{6N}$来表示系统的微观状态，即$\symbf{\Gamma}\equiv\left(\mathbf{r}^N,\mathbf{p}^N\right)$。
+
+由于我们无法精确确定系统在任何时刻的微观状诚，我们转而采用概率论的方法，为系统在相空间中可能占据的每一个微观状态赋予一个概率。具体地，我们考虑由相空间$\mathbb{R}^{6N}$及其上的博雷尔$\sigma$-代数$\mathcal{B}$构成的可测空间$\left(\mathbb{R}^{6N},\mathcal{B}\right)$。博雷尔$\sigma$-代数包含了相空间中所有可测子集，即我们可以为其定义概率的区域。
+
+设$\mu_t:\mathcal{B}\rightarrow\left[0,1\right]$是定义在这个可测空间上的概率测度，它描述了系统在$t$时刻的微观状态在相空间某个区域内的概率。对于相空间中的任意一个可测区域$X\in\mathcal{B}$，$\mu_t\left[X\right]$表示系统在$t$时刻微观状态处于区域$X$内的概率。
+
+我们可以用一个概率密度函数$f\left(\symbf{\Gamma},t\right)$来描述这个概率测度。即，系统在$t$时刻微观状态处于相空间区域$X$内的概率可以表示为：
+\begin{equation}
+    \mu_t\left[X\right]\equiv\int_X f\left(\symbf{\Gamma},t\right)\mathrm{d}\symbf{\Gamma}
+\end{equation}
+其中，$f\left(\symbf{\Gamma},t\right)\mathrm{d}\symbf{\Gamma}$表示系统在$t$时刻微观状态处于以$\symbf{\Gamma}$为中心、体积为$\mathrm{d}\symbf{\Gamma}$的无穷小相空间体积元内的概率。这里的$\mathrm{d}\symbf{\Gamma}$是相空间中的勒贝格测度（即体积元）。
+
+允许这样一个密度函数$f\left(\symbf{\Gamma},t\right)$的存在，在数学上意味着所需的概率测度$\mu_t$相对于$\mathbb{R}^{6N}$上的勒贝格测度是绝对连续的。这在物理上体现了经典力学中的相空间状态的连续性，即任何有限的相空间区域都包含着无穷多的微观状态，且这些状态不是离散分布的，而是连续分布的。因此，可以用一个连续函数$f$来描述其概率分布。概率密度函数$f\left(\symbf{\Gamma},t\right)$必须满足归一化条件：
+\begin{equation}
+    \int_{\mathbb{R}^{6N}}f\left(\symbf{\Gamma},t\right)\mathrm{d}\symbf{\Gamma}\equiv 1
+\end{equation}
+
+在经典力学中，给定系统的运动方程，一个时刻$t$的确定微观状态$\symbf{\Gamma}_t$将被唯一地映射为另一时刻$t^\prime$的确定微观态$\symbf{\Gamma}_{t^\prime}$。这种演化过程可以用一个相空间流映射来表示。
+
+具体地，我们可以定义一个映射$\chi_{t\to t^\prime}:\mathbb{R}^{6N}\rightarrow\mathbb{R}^{6N}$，它将$t$时刻的相空间点$\symbf{\Gamma}_t$映射到$t^\prime$时刻的相空间点$\symbf{\Gamma}_{t^\prime}$：
+\begin{equation}
+    \symbf{\Gamma}_{t^\prime}=\chi_{t\to t^\prime}\left(\symbf{\Gamma}_t\right)
+\end{equation}
+由于经典力学运动方程的确定性和可逆性，这个映射$\chi_{t\to t^\prime}$是一个连续双射，故其把开集映射为开集，同时它是可测映射。
+
+设$\omega_t\in\mathcal{B}$是$t$时刻相空间中的一个可测区域，那么它在$t^\prime$时刻演化为区域为$\omega_{t^\prime}=\chi_{t\to t^\prime}\left(\omega_t\right)$，且$\omega_{t^\prime}$也是可测的。因此我们有$\omega_t=\chi^{-1}_{t\to t^\prime}\left(\omega_{t^\prime}\right)$。如果记$\mu_{t^\prime}$为$\mu_t$在映射$\chi_{t\to t^\prime}$下的\emph{前推测度（pushforward measure）}，即对于相空间中任意一个在$t^\prime$时刻的可测区域$\omega_{t^\prime}$，
+\begin{equation}\label{eq:pushforward measure}
+    \mu_{t^\prime}\left(\omega_{t^\prime}\right)\equiv\mu_t\left(\chi_{t\to t^\prime}^{-1}\left(\omega_{t^\prime}\right)\right)
+\end{equation}
+由$\chi_{t\to t^\prime}$的双射性，我们可知：若$\omega_t\in\mathcal{B}$是时刻$t$的一个可测区域，且$\omega_{t^\prime}=\chi_{t\to t^\prime}\left(\omega_t\right)$是其演化到时刻$t^\prime$的区域，那么$\omega_t=\chi_{t\to t^\prime}^{-1}\left(\omega_{t^\prime}\right)$。将此关系代入\eqref{eq:pushforward measure}，则有：
+\begin{equation}
+    \mu_{t^\prime}\left(\omega_{t^\prime}\right)=\mu_t\left(\omega_t\right)
+\end{equation}
+此等式表明，对于任意一个随相空间流演化的可测区域，其概率值在时间演化过程中是保持不变的。这个结论对任意时刻$t,t^\prime$以及任意一对由流映射相互关联的可测区域$\omega_t$和$\omega_{t^\prime}$都成立。
+
+由此，我们得到：
+\begin{equation}
+    \frac{\mathrm{d}}{\mathrm{d}t}\mu_t\left[\omega_t\right]=\frac{\mathrm{d}}{\mathrm{d}t}\int_{\omega_t}f\left(\symbf{\Gamma},t\right)\mathrm{d}\symbf{\Gamma}=0
+\end{equation}
+需要强调的是，这里的积分区域$\omega_t$是一个随时间变化的区域，它沿着相空间流而运动。
+
+为了处理对随时间变化的积分区域进行的求导，我们借助雷诺传输定理，可以得到关于概率密度$f\left(\symbf{\Gamma},t\right)$的连续性方程，亦即\emph{刘维尔方程（Liouville equation）}：
+\begin{equation}\label{eq:Liouville equation}
+    \boxed{\dot{f}+\boldsymbol{\nabla}\cdot\left(f\dot{\symbf{\Gamma}}_t\right)=0}
+\end{equation}
+这里的“速度”$\mathbf{v}$是系统在相空间位置$\symbf{\Gamma}$变化的运动速度。
+
+使用“物质导数”表示，则刘维尔方程又可写成
+\begin{equation}
+    \frac{\mathrm{D}}{\mathrm{D}t}f=-\boldsymbol{\nabla}\cdot \mathbf{v}
+\end{equation}
+其中$\mathrm{D}/\mathrm{D}t=\partial/\partial t+\mathbf{v}\cdot\boldsymbol{\nabla}$。可见，刘维尔方程\eqref{eq:Liouville equation}作为相空间中的流体的连续性方程，并不一般地保证“不可压缩性”。我们把$\boldsymbol{\nabla}\cdot\mathbf{v}$展开可以写成
+\begin{equation}\label{eq:Liouville equation material derivative}
+\boldsymbol{\nabla}\cdot\mathbf{v}=\sum_{i=1}^{6N}\frac{\partial}{\partial\Gamma_i}v_i=\sum_{j=1}^{3N}\left(\frac{\partial}{\partial r_j}\dot{r}_j+\frac{\partial}{\partial p_j}\dot{p}_j\right)
+\end{equation}
+如果体系是哈密顿系，即满足
+\begin{equation}
+    \dot{r}_j=\frac{\partial H}{\partial p_j},\quad\dot{p}_j=-\frac{\partial H}{\partial r_j}
+\end{equation}
+代入上式可得出$\boldsymbol{\nabla}\cdot\mathbf{v}=0$。也就是说，哈密顿系的相空间流体是“不可压缩的”。在物理化学的语境中，说一个系统（在微观层面上）是哈密顿系，就是说它（在热力学层面上）是孤立系统。一个系统在微观层面上是非哈密顿系的情况包括：体系与环间之间存在摩擦力或粘性力、与热源交换能量、体系是开放系统。这三种情况中，第一种情况仍然能用非哈密顿版的刘维尔方程\eqref{eq:Liouville equation}描述，前提是我们能把环境对系统的“耗散力”作用描述成一种非保守力。此时体系仍然可以用一套确定性的微观动力学方程描述，只是它不再是哈密顿方程。但是第二、三种情况没办法直接用式\eqref{eq:Liouville equation}。第二种情况是因为系统的粒子与环境的粒子在系统边界的碰撞没被纳入原系统的运动方程中，也无法简单等价成一个非保守力。想要精确描述这些碰撞，除非把环境也纳入一个新的大孤立体系一起讨论。第三种情况，粒子数$N$在变化，无法用固体维数的相空间描述问题。更多讨论见“统计力学中的约束”一文。
+
+回到基于式\eqref{eq:Liouville equation}的讨论。我们采用算符语言，将式\eqref{eq:Liouville equation}写成
+\begin{equation}
+    \dot{f}=-\imagI \mathcal{L} f
+\end{equation}
+其中
+\begin{align}
+    \imagI \mathcal{L}f&=\boldsymbol{\nabla}\cdot\left(f\mathbf{v}\right)\\
+    &=\mathbf{v}\cdot\boldsymbol{\nabla}f+\left(\boldsymbol{\nabla}\cdot\mathbf{v}\right)f\\
+    \Leftrightarrow\imagI\mathcal{L}&=\mathbf{v}\cdot\boldsymbol{\nabla}+\boldsymbol{\nabla}\cdot\mathbf{v}
+\end{align}
+称\emph{关于概率密度的刘维尔算符（$f$-Liouvillian）}。方程\eqref{eq:Liouville equation}可写出\emph{预解式（resolvent）}
+\begin{equation}
+    f\left(\symbf{\Gamma},t\right)=e^{-\imagI \mathcal{L}t}f\left(\symbf{\Gamma},0\right)
+\end{equation}
+利用泰勒展开，\emph{传播子（propagator）}$\exp\left(-\imagI \mathcal{L}\right)$可写成
+\begin{equation}
+    \exp\left(-\imagI \mathcal{L}t\right)=\sum_{n=0}^\infty\frac{\left(-t\right)^n}{n!}\left(\imagI \mathcal{L}\right)^n
+\end{equation}
+因此刘维尔方程的解又可表示成级数
+\begin{equation}
+    f\left(\symbf{\Gamma},t\right)=\sum_{n=0}^\infty\frac{t^n}{n!}\frac{\partial^n}{\partial t^n}f\left(\symbf{\Gamma},0\right)
+\end{equation}
+其中用到了
+\begin{equation}
+    \left(-\imagI \mathcal{L}\right)^nf\left(\symbf{\Gamma},0\right)=\left(-\imagI L\right)^{n-1}\left(-\imagI \mathcal{L}\right)f\left(\symbf{\Gamma},0\right)=\left(-\imagI \mathcal{L}\right)^{n-1}\frac{\partial}{\partial t}f\left(\symbf{\Gamma},0\right)=\cdots=\frac{\partial^n}{\partial t^n}f\left(\symbf{\Gamma},0\right)
+\end{equation}
+
+\section{动力学量的变化方程}
+\emph{动力学量（dynamic variable）}是体系微观状态的函数，即体系的某性质$B$是映射$B:\mathbb{R}^{6N}\rightarrow\mathcal{F}$，其中$\mathcal{F}$根据物理量$B$的具体定义可以是标量、向量或张量值空间。映射$B\left(\symbf{\Gamma}\right)$可给出任一微观状态$\symbf{\Gamma}$所对应的物理性质取值。
+
+体系的运动过程是相空间中的一条轨迹$\symbf{\Gamma}\left(t\right)$，则性质$B$的变化就是$B\left(\symbf{\Gamma}\left(t\right)\right)$。为了区分，我们把这种随微观状态变化的即时性质记为$\hat{B}\left(t\right)=B\left(\symbf{\Gamma}\left(t\right)\right)$。对$\hat{B}\left(t\right)$求时间导数：
+\begin{equation}
+    \frac{\mathrm{d}}{\mathrm{d}t}\hat{B}\left(t\right)=\frac{\mathrm{d}}{\mathrm{d}t}B\left(\symbf{\Gamma}\left(t\right)\right)=\mathbf{v}\cdot\boldsymbol{\nabla}B
+\end{equation}
+其中对$B$的梯度是在$\symbf{\Gamma}\left(t\right)$处求的，所以是沿着轨迹$\symbf{\Gamma}\left(t\right)$变化的。我们引入新的算符：
+\begin{equation}
+    \imagI L=\mathbf{v}\cdot\boldsymbol{\nabla}
+\end{equation}
+称\emph{关于动力学量的刘维尔算符（$p$-Liouvillian）}。
+
+这种“跟着轨迹变化”的表达形式，类似于流体力学中的拉格朗日描述。状态点$\symbf{\Gamma}$就是流体的物质点。概率密度$f\left(\symbf{\Gamma},t\right)$就是流体的密度场。如果采用欧拉描述，$\symbf{\Gamma}$不再用来描述系统某次运动在相空间中的轨迹，而用于表示$\mathbb{R}^{6N}$欧几里得空间的位置向量。这时，我们也不再讨论某次运动中系统处于$t$时刻的性质$B$的取值$\hat{B}$，而是假想系统从每一个初条件（即$t=0$时处于相空间的每一点）出发，运动到当前时刻$t$就达到不同的相空间当前位置。这将发出一束而不是一根相空间运动轨迹，相当于一团相空间流体在$\mathbb{R}^{6N}$空间中的流动过程。这时$t$时刻空间位置$\symbf{\Gamma}$处，关于状态点的性质$B$就是欧拉描述，为区别记为$\tilde{B}\left(\symbf{\Gamma},t\right)$。依照流体力学的知识，如果由$\tilde{B}$而不是$\hat{B}$求性质$B$的变化率（的欧拉描述），就需要对$\tilde{B}$作物质导数：
+\begin{equation}
+    \frac{\mathrm{D}}{\mathrm{D}t}\tilde{B}\left(\symbf{\Gamma},t\right)=\frac{\partial}{\partial t}\tilde{B}\left(\symbf{\Gamma},t\right)+\mathbf{v}\cdot\boldsymbol{\nabla}\tilde{B}=\mathbf{v}\cdot\boldsymbol{\nabla}B
+\end{equation}
+注意到，由状态计算性质$B$的方法，就是根据物理性质$B$的物理定义，这个定义（即映射）是不随时间变化的。因此上式中的第一个偏导数必为零（记得此时$\symbf{\Gamma}$表示固定的某状态）。上式的速度$\mathbf{v}$也应是欧拉描述，对$B$的梯度也是在固定点$\symbf{\Gamma}$处的梯度。如此一来，$\mathrm{D}\tilde{B}/\mathrm{D}t$和$\mathrm{d}\hat{B}/\mathrm{d}t$形式相同，只差一个欧拉描述与拉格朗日描述变换——正如其所应当。
+
+比较$L$与$\mathcal{L}$可知，当且仅当系统是哈密顿系（即$\boldsymbol{\nabla}\cdot\mathbf{v}=0$）时$L=\mathcal{L}$，可不加区分。
+
+不管采用欧拉还是拉格朗日描述，都是在阐述关于系统的动力学量$B$的变化率的方程，因此我们省去两种描述区别的记法，把$B$的变化率记作：
+\begin{equation}
+    \frac{\mathrm{d}}{\mathrm{d}t}B=\frac{\mathrm{d}}{\mathrm{d}t}\hat{B}=\frac{\mathrm{D}}{\mathrm{D}t}\tilde{B}=\imagI L B
+\end{equation}
+这就是系统的动力学量的变化方程。它的预解式是
+\begin{equation}
+    B\left(t\right)=\exp\left(\imagI Lt\right)B\left(0\right)
+\end{equation}
+
+我们将简短证明，$\mathcal{L}$与$L$互为伴随算符，即
+\begin{equation}
+\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},0\right)\imagI LB\left(0\right)=-\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}B\left(0\right)\imagI \mathcal{L}f\left(\symbf{\Gamma},0\right)
+\end{equation}
+其中我们把两个动力学量的内积定义为
+\begin{equation}
+    \left(A\middle |B\right)=\int_{\Lambda_0}\overline{A}\left(\symbf{\Gamma},t\right)B\left(\symbf{\Gamma},t\right)\mathrm{d}\symbf{\Gamma}
+\end{equation}
+其中上划线表示取复数共轭。因此需证明的等式其实就是
+\begin{equation}
+    \left(f\middle|\imagI L B\right)=-\left(\imagI\mathcal{L}f\middle|B\right)\Leftrightarrow\left(f\middle|LB\right)=\left(\mathcal{L}f|B\right)
+\end{equation}
+用文字说就是$L$与$\mathcal{L}$互为伴随算符：$L=\mathcal{L}^\intercal$。
+\begin{proof}
+\begin{align*}
+    lhs&=\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},0\right)\mathbf{v}\cdot\boldsymbol{\nabla}B\left(0\right)\mathrm{d}\symbf{\Gamma}\\
+    &=-\int_{\partial\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},0\right)B\left(0\right)\mathbf{v}\cdot\hat{\mathbf{n}}d\sigma+\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}B\left(0\right)\boldsymbol{\nabla}\cdot\left(f\left(\symbf{\Gamma},0\right)\mathbf{v}\right)\\
+    &=-\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}B\left(0\right)\imagI \mathcal{L}f\left(\symbf{\Gamma},0\right)=rhs
+\end{align*}
+其中第二个等号第一项因在$\Lambda_0$的边界上总有$f\left(\symbf{\Gamma},0\right)\to 0$而为零，因为物理上我们常进一步要求$f$满足狄利克雷条件，因此$f$绝对可积，结合它是恒正且满足归一化条件的要求，充分地它在$\Lambda_0$的边界上总有$f\left(\symbf{\Gamma},0\right)\to 0$。剩下的第二项变到第三个等号时用到了$-\imagI\mathcal{L}f\left(\symbf{\Gamma},0\right)=\boldsymbol{\nabla}\cdot\left(f\left(\symbf{\Gamma},0\right)\mathbf{v}\right)$。
+\end{proof}
+作为显然的推论，当前仅当系统是哈密顿系时$\mathcal{L}$（或$L$）是厄米算符。
+
+\section{系综平均}
+我们引入非平衡态下的“系综平均”。对体系的动力学量$B$作$t$时刻的系综平均，就是用$t$时刻的概率密度$f\left(\symbf{\Gamma},t\right)$对$B\left(\symbf{\Gamma}\right)$求期望，即
+\begin{equation}
+    \left\langle B\right\rangle_\text{S}\left(t\right)=\int_{\Lambda_t}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},t\right)B\left(\symbf{\Gamma}\right)
+\end{equation}
+下标“S”表示这个定义是\emph{薛定谔绘景（Schrödinger picture）}。另一方面我们可以假想以$t=0$时刻的初始概率密度$f\left(\symbf{\Gamma},0\right)$对$B\left(\symbf{\Gamma}\right)$求期望，再让系统以这些初状态运动到$t$时刻，即
+\begin{equation}
+    \left\langle B\right\rangle_\text{H}\left(t\right)=\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},0\right)\exp\left(\imagI Lt\right)B\left(\symbf{\Gamma}\right)
+\end{equation}
+下标“H”表示这个定义是\emph{海森堡绘景（Heisenberg Picture）}。
+
+我们马上证明，两种绘景定义的系综平均是等价的。
+\begin{proof}
+\begin{align*}
+    \left\langle B\right\rangle_\text{H}\left(t\right)&=\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},0\right)\exp\left(\imagI Lt\right)B\left(\symbf{\Gamma}\right)\\
+    &=\sum_{n=0}^\infty\frac{1}{n!}\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},0\right)\left(t\mathbf{v}\cdot\boldsymbol{\nabla}\right)^nB\left(\symbf{\Gamma}\right)\\
+    &=\sum_{n=0}^\infty\frac{1}{n!}\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},0\right)\imagI L\left[\left(t\mathbf{v}\cdot\boldsymbol{\nabla}\right)^{n-1}B\left(\symbf{\Gamma}\right)\right]\\
+    &=\sum_{n=0}^\infty\frac{1}{n!}\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}\left(-\imagI\mathcal{L}f\left(\symbf{\Gamma},0\right)\right)\left[\left(t\mathbf{v}\cdot\boldsymbol{\nabla}\right)^{n-1}B\left(\symbf{\Gamma}\right)\right]\\
+    &\vdots\\
+    &=\sum_{n=0}^\infty\frac{1}{n!}\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}\left(-\imagI\mathcal{L}\right)^nf\left(\symbf{\Gamma},-\right)B\left(\symbf{\Gamma}\right)\\
+    &=\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},t\right)B\left(\symbf{\Gamma}\right)
+\end{align*}
+区域$\Lambda_t$是由$\Lambda_0$经过相空间流演化而来的，即$\Lambda_t=\chi_{0\to t}\left(\Lambda_0\right)$。记$J$为系统的运动映射$\chi_{0\to t}$的雅可比行列式。则$J\mathrm{d}\symbf{\Gamma}=\mathrm{d}\symbf{\Gamma}^\prime$。由于系统运动的保测性，定义在$\Lambda_0$上的$f\left(\symbf{\Gamma}\right)$和定义在$\Lambda_t$上的$f\left(\symbf{\Gamma}^\prime\right)$之间满足保测条件，即
+\begin{equation*}
+f\left(\symbf{\Gamma}\right)\mathrm{d}\symbf{\Gamma}=f\left(\symbf{\Gamma}^\prime\right)\mathrm{d}\symbf{\Gamma}^\prime\Leftrightarrow f\left(\symbf{\Gamma}\right)=Jf\left(\symbf{\Gamma}^\prime\right)
+\end{equation*}
+因此可得
+\begin{equation*}
+    \left\langle B\right\rangle_\text{H}\left(t\right)=\int_{\Lambda_0}\mathrm{d}\symbf{\Gamma}f\left(\symbf{\Gamma},t\right)B\left(\symbf{\Gamma}\right)=\int_{\Lambda_t}\mathrm{d}\symbf{\Gamma}^\prime f\left(\symbf{\Gamma}^\prime,t\right)B\left(\symbf{\Gamma}^\prime\right)=\left\langle B\right\rangle_\text{S}\left(t\right)
+\end{equation*}
+\end{proof}
+因此不加区分时可统一记为$\left\langle B\right\rangle\left(t\right)$。
+
+统计力学公理性地认为，$\left\langle B\right\rangle\left(t\right)$就是体系宏观性质$B$的真值时间变化。
+
+我们进行宏观实验时，总是无法精确测得性质的真值的。在实际测量中，体系只发生某一次演化过程，表现为相空间中的某条轨迹$\symbf{\Gamma}\left(t\right)$。我们测得的是$B\left(\symbf{\Gamma}\left(t\right)\right)$。我们认为，第时刻$t$下，系统恰好处于$\symbf{\Gamma}\left(t\right)$状态，是从概率密度函数$f\left(\symbf{\Gamma},t\right)$取样得到的随机值。如果我们可以大量重复完全相同的实验，则有望使多次实验在每个时刻$t$的状态（由于随机性次次不同）遍历相空间，从而对这个多次实测的$B\left(t\right)$直接平均就能等于$\left\langle B\right\rangle\left(t\right)$，也就得到了宏观性质真值。但实际上我们重复测量次数是有限的，各次重复实验就有随机涨落，其方差$\left\langle B^2\right\rangle-\left\langle B\right\rangle^2>0$。这里，我们实际视$\left\{B\left(t\right),t\in\mathbb{R}\right\}$为一个随机过程。
+
+我们看到，$\left\langle B\right\rangle\left(t\right)$的时间依赖性其实是来自概率密度函数$f\left(\symbf{\Gamma},t\right)$的时间依赖性。我们常常看到，体系的宏观性质在外界条件恒定的情况下，假以时日总是达到稳态，这反映$f\left(\symbf{\Gamma},t\right)$在$t\to \infty$时失去时间依赖性，从而有
+\begin{equation}
+    f_\text{st}\left(\symbf{\Gamma}\right)=f\left(\symbf{\Gamma},t\to\infty\right)
+\end{equation}
+故
+\begin{equation}
+    \left\langle B\right\rangle_\text{st}=\int_\Lambda\mathrm{d}\symbf{\Gamma}f_\text{st}\left(\symbf{\Gamma}\right)B\left(\symbf{\Gamma}\right)
+\end{equation}
+此时，我们可以像平衡态统计力学那样讨论以下时间平均
+\begin{equation}
+    \left\langle B\right\rangle_t=\lim_{\tau\to\infty}\tau^{-1}\int_{t_0}^{t_0+\tau}\mathrm{d}tB\left(t\right)
+\end{equation}
+其中下标$t$表示这是一个时间平均，而非系综平均。对于稳态下的体系，如果有$\left\langle B\right\rangle_t=\left\langle B\right\rangle$，就称这个系统是\emph{遍历的（ergodic）}。在一般平衡态统计力学书中，系统的遍历性是公理化规定的。但是在非平衡态统计力学与动力学系统的交叉领域，人们倾向于不直接规定遍历性，而希望从微观动力学出发得出系统是否遍历或何时遍左边。相关的话题不在此展开。
+\end{document}

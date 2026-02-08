@@ -1,0 +1,253 @@
+\documentclass[
+  zihao=5,
+  linespread=1.3,
+  a4paper,
+  heading=true,
+  twoside
+]{ctexbook}
+
+% package for Chinese style
+%\usepackage{ctex}
+\ctexset{
+    %chapter/name={第,讲},                    % Remove "第" and "章" 
+    chapter/number=\chinese{chapter},   % Use simple numbering: 1., 2., etc.
+    chapter/format=\centering\Large\bfseries,
+    section/format=\raggedright\large\bfseries,
+    subsection/format=\raggedright\normalsize\bfseries, % Chapter title formatting
+    punct=kaiming
+}
+\newcommand{\YearMonth}{\number\year 年\number\month 月}
+
+%\usepackage[utf8]{inputenc}
+
+% packages for page layout
+\usepackage{geometry}
+\geometry{
+a4paper,
+total={172mm,246.2mm},
+left=19.1mm,
+top=25.4mm,
+}
+\setlength{\headheight}{14.5pt}
+\usepackage{fancyhdr}
+\usepackage{emptypage}
+\fancyhead{}
+\fancyhead[LE,RO]{\rightmark}
+\fancyhead[LO,RE]{\leftmark}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,RE]{更新至\today}
+
+% package for standard state symbol
+\usepackage{plimsoll}
+
+% define inexact differential symbol
+\newcommand{\dbar}{d\hspace*{-0.08em}\bar{}\hspace*{0.1em}}
+
+% define defining equation symbol
+\newcommand{\eqdef}{\overset{\text{def}}{=}}
+
+% package for units
+\usepackage{siunitx}
+
+% package for chemistry
+\usepackage[version=4]{mhchem}
+
+% package for Chinese formatting
+\usepackage{CJKfntef}
+
+% package for inline slanted fraction
+%\usepackage{xfrac}
+
+% package for colors
+\usepackage{xcolor}
+
+% packages for fonts
+\usepackage{amsmath}
+% \usepackage{amssymb}
+% \usepackage{bm}
+% \usepackage{upgreek}
+%\usepackage{wasysym}
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{stmaryrd}
+%\setmathfont{Latin Modern Math} % your main math font
+\setmainfont{Libertinus Serif}
+\setmathfont{Libertinus Math}
+% Define a text font just for these symbols
+\newfontfamily\markersfont{STIX Two Math}
+\newcommand{\CIRCLEWITHRIGHTHALFBLACK}{\text{\markersfont ◑}}
+\newcommand{\CIRCLEWITHLOWERHALFBLACK}{\text{\markersfont ◒}}
+\newcommand{\CIRCLEDVERTICALBAR}{\text{\markersfont ⦶}}
+\newcommand{\BLACKCIRCLE}{\text{\markersfont ●}}
+\newcommand{\WHITECIRCLE}{\text{\markersfont ○}}
+\setmathfont{STIX Two Math}[range={"22BA}] % ⊺
+\providecommand{\intercal}{\mathbin{\symnormal{⊺}}}
+\DeclareSIUnit\angstrom{\text{\markersfont Å}}
+\newcommand{\imagI}{\symbb{i}}
+% \setCJKmainfont{Noto Serif Simplified Chinese}
+
+
+% define defining equation symbol
+\AtBeginDocument{\renewcommand{\eqdef}{\overset{\text{def}}{=}}}
+% Larger "def" above the equals
+% \AtBeginDocument{\renewcommand{\eqdef}{\mathrel{\mathop{=}\limits^{\text{\normalfont\small def}}}}}
+% colon equal
+% \AtBeginDocument{\renewcommand{\eqdef}{:=}}
+
+% packages for graphics
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/}{./images/} }
+\usepackage[belowskip=0.5\baselineskip,
+            aboveskip=0.25\baselineskip,
+            font=small]{caption}
+\usepackage{calc}
+
+% wrapfig ↔ text gaps in terms of existing registers
+\setlength{\intextsep}{1\baselineskip}    % vertical space above & below
+\setlength{\columnsep}{0.03\textwidth}    % horizontal gutter
+
+\captionsetup[wrapfigure]{%
+  aboveskip=0.25\baselineskip,
+  belowskip=0.5\baselineskip
+}
+
+\newcommand{\wrapnativegraphic}[3][r]{%
+  % #1: placement (r,l,i,o), default r
+  % #2: filename
+  % #3: caption
+  \begingroup
+    \sbox0{\includegraphics{#2}}% measure native size
+    \begin{wrapfigure}{#1}{\wd0}
+      \centering
+      \usebox0
+      \caption{#3}
+    \end{wrapfigure}
+  \endgroup
+}
+
+\usepackage{subcaption}
+\usepackage{capt-of}
+\usepackage{cutwin}
+
+% package for table
+\usepackage{tabularx}
+\usepackage{longtable}
+
+% package for quotes
+\usepackage{csquotes}
+
+% redefine itemize
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+\setlist{nosep}
+
+% package for hyperlinks
+\usepackage{hyperref}
+\hypersetup{colorlinks=true}
+
+% packages for footnotes
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\usepackage{perpage}
+\MakePerPage{footnote} 
+
+% packages for bibliography
+\usepackage[
+backend=biber,
+style=gb7714-2015,        
+gbpub=false,
+sorting=none
+]{biblatex}
+\addbibresource{./ref/ref.bib}
+
+% packages for definitions, theorems, proofs.
+\usepackage{amsthm}
+
+% set styles for definitions, lemmata, theorems, proofs, examples
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+\newtheorem*{definition*}{定义}
+\newtheorem{theorem}{定理}
+\newtheorem*{theorem*}{定理}
+\newtheorem{lemma}{引理}
+\newtheorem{corollary}{推论}[theorem]
+\let\oldproof\proof
+\renewcommand{\proof}{\color{gray}\oldproof}
+
+\theoremstyle{plain}
+\newtheorem{example}{例}
+
+% counter controlling
+\usepackage{chngcntr}
+%\counterwithin{figure}{section}
+%\counterwithin{equation}{section}
+%\counterwithin{section}{part}
+\setcounter{tocdepth}{1}
+
+% package for subfiles
+\usepackage{subfiles}
+
+\usepackage{datetime2}
+    
+% redefine equation reference to add CJK glue
+\AtBeginDocument{%
+  \let\OrigEqref\eqref
+  \renewcommand{\eqref}[1]{\CJKecglue\OrigEqref{#1}\CJKecglue}%
+}
+
+\title{粒子示踪流变学}
+\author{孙尉翔\\mswxsun@scut.edu.cn}
+%=====================================================================================================================
+\begin{document}
+\tableofcontents
+
+
+\part{数学基础}
+
+\chapter{集合论基础}
+\subfile{Part I/set_theor.tex}
+
+\chapter{测度论基础}
+\subfile{Part I/meas_theor.tex}
+
+
+
+\chapter{概率论基础}
+\subfile{Part I/prob.tex}
+
+
+
+\chapter{随机过程基础}
+
+
+\chapter{分布函数和傅里叶变换}
+\subfile{fourier_transform.tex}
+
+\chapter{拉普拉斯变换}
+\chapter{常微分方程}
+
+\chapter{偏微分方程}
+\subfile{PDE.tex}
+
+\chapter{随机微分方程基础}
+
+\chapter{朗之万方程}
+
+\chapter{广义朗之万方程}
+
+\chapter{时间序列分析基础}
+\chapter{朗之万方程的离散化}
+\chapter{广义朗之万方程的离散化}
+
+\part{胶体粒子的布朗运动}
+
+\part{简单液体理论}
+\chapter{刘维尔方程}
+\subfile{Part Simple Liquid/liouville_eq}
+
+\chapter{液体涨落性质的时间相关函数}
+
+
+
+\end{document}
