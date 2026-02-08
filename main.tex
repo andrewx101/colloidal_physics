@@ -71,7 +71,7 @@ top=25.4mm,
 
 \usepackage{fontspec}
 \usepackage{unicode-math}
-\usepackage{stmaryrd}
+% \usepackage{stmaryrd}
 %\setmathfont{Latin Modern Math} % your main math font
 \setmainfont{Libertinus Serif}
 \setmathfont{Libertinus Math}
@@ -83,9 +83,13 @@ top=25.4mm,
 \newcommand{\BLACKCIRCLE}{\text{\markersfont ●}}
 \newcommand{\WHITECIRCLE}{\text{\markersfont ○}}
 \setmathfont{STIX Two Math}[range={"22BA}] % ⊺
+\setmathfont{STIX Two Math}[range={"2ACC}] % ⫌
+\setmathfont{STIX Two Math}[range={"2ACB}] % ⫋
 \providecommand{\intercal}{\mathbin{\symnormal{⊺}}}
 \DeclareSIUnit\angstrom{\text{\markersfont Å}}
 \newcommand{\imagI}{\symbb{i}}
+\providecommand{\llbracket}{\lBrack}
+\providecommand{\rrbracket}{\rBrack}
 % \setCJKmainfont{Noto Serif Simplified Chinese}
 
 
@@ -148,7 +152,7 @@ top=25.4mm,
 \hypersetup{colorlinks=true}
 
 % packages for footnotes
-\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\thefootnote}{\arabic{footnote}}
 \usepackage{perpage}
 \MakePerPage{footnote} 
 
