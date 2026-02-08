@@ -185,10 +185,11 @@
 
 我们进行宏观实验时，总是无法精确测得性质的真值的。在实际测量中，体系只发生某一次演化过程，表现为相空间中的某条轨迹$\symbf{\Gamma}\left(t\right)$。我们测得的是$B\left(\symbf{\Gamma}\left(t\right)\right)$。我们认为，第时刻$t$下，系统恰好处于$\symbf{\Gamma}\left(t\right)$状态，是从概率密度函数$f\left(\symbf{\Gamma},t\right)$取样得到的随机值。如果我们可以大量重复完全相同的实验，则有望使多次实验在每个时刻$t$的状态（由于随机性次次不同）遍历相空间，从而对这个多次实测的$B\left(t\right)$直接平均就能等于$\left\langle B\right\rangle\left(t\right)$，也就得到了宏观性质真值。但实际上我们重复测量次数是有限的，各次重复实验就有随机涨落，其方差$\left\langle B^2\right\rangle-\left\langle B\right\rangle^2>0$。这里，我们实际视$\left\{B\left(t\right),t\in\mathbb{R}\right\}$为一个随机过程。
 
-我们看到，$\left\langle B\right\rangle\left(t\right)$的时间依赖性其实是来自概率密度函数$f\left(\symbf{\Gamma},t\right)$的时间依赖性。我们常常看到，体系的宏观性质在外界条件恒定的情况下，假以时日总是达到稳态，这反映$f\left(\symbf{\Gamma},t\right)$在$t\to \infty$时失去时间依赖性，从而有
+我们看到，$\left\langle B\right\rangle\left(t\right)$的时间依赖性其实是来自概率密度函数$f\left(\symbf{\Gamma},t\right)$的时间依赖性。我们常常看到，体系的宏观性质在外界条件恒定的情况下，假以时日总是趋于稳定，不再依赖时间（趋近平衡）。这反映$f\left(\symbf{\Gamma},t\right)$在$t\to \infty$时失去时间依赖性，从而有
 \begin{equation}
-  f_\text{st}\left(\symbf{\Gamma}\right)=f\left(\symbf{\Gamma},t\to\infty\right)
+  f_\text{eq}\left(\symbf{\Gamma}\right)=f\left(\symbf{\Gamma},t\to\infty\right)
 \end{equation}
+或者说，
 故
 \begin{equation}
   \left\langle B\right\rangle_\text{st}=\int_\Lambda\mathrm{d}\symbf{\Gamma}f_\text{st}\left(\symbf{\Gamma}\right)B\left(\symbf{\Gamma}\right)
@@ -197,5 +198,5 @@
 \begin{equation}
   \left\langle B\right\rangle_t=\lim_{\tau\to\infty}\tau^{-1}\int_{t_0}^{t_0+\tau}\mathrm{d}tB\left(t\right)
 \end{equation}
-其中下标$t$表示这是一个时间平均，而非系综平均。对于稳态下的体系，如果有$\left\langle B\right\rangle_t=\left\langle B\right\rangle$，就称这个系统是\emph{遍历的（ergodic）}。在一般平衡态统计力学书中，系统的遍历性是公理化规定的。但是在非平衡态统计力学与动力学系统的交叉领域，人们倾向于不直接规定遍历性，而希望从微观动力学出发得出系统是否遍历或何时遍左边。相关的话题不在此展开。
+其中下标$t$表示这是一个时间平均，而非系综平均。对于稳态下的体系，如果有$\left\langle B\right\rangle_t=\left\langle B\right\rangle$，就称这个系统是\emph{遍历的（ergodic）}。在一般平衡态统计力学书中，系统的遍历性是公理化规定的。但是在非平衡态统计力学与动力学系统的交叉领域，人们倾向于不直接规定遍历性，而希望从微观动力学出发得出系统是否遍历或何时遍左边。相关的话题不在此展开\footnote{参见文献}。
 \end{document}
